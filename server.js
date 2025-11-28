@@ -5,10 +5,15 @@ const cron = require('node-cron');
 const axios = require('axios');
 
 // Firebase setup
-const serviceAccount = require('./serviceAccountKey.json');
+require('dotenv').config();
+const admin = require('firebase-admin');
+
+const serviceAccount = JSON.parse(process.env.FIREBASE_CONFIG);
+
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
+
 const db = admin.firestore();
 
 const app = express();
